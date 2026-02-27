@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flower Guts 実践BOOK | Digital Guide Book</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #F4F2E9; /* Cream */
+            color: #444444;
+        }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* カスタムカラーのユーティリティ */
+        .text-terracotta { color: #d78e79; }
+        .bg-terracotta { background-color: #d78e79; }
+        .border-terracotta { border-color: #d78e79; }
+        .bg-beige { background-color: #EADCD0; }
+        .border-beige { border-color: #EADCD0; }
+        .text-mint { color: #B0BCAA; }
+        .bg-mint { background-color: #B0BCAA; }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white px-6 py-4 shadow-sm flex items-center justify-between border-b border-beige">
+        <div class="flex flex-col">
+            <h1 class="text-xl font-bold tracking-tight text-terracotta">Flower guts 実践BOOK</h1>
+            <p class="text-[10px] font-bold opacity-50 uppercase tracking-widest">Digital Guide Book</p>
+        </div>
+        <!-- Logo SVG -->
+        <div id="logo-container">
+            <svg width="50" height="50" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="48" fill="#EADCD0" stroke="#d78e79" stroke-width="0.5"/>
+                <path d="M50 22C54 35 62 35 68 22C72 35 82 42 70 48C82 54 72 62 68 78C62 65 54 65 50 78C46 65 38 65 32 78C28 62 18 54 30 48C18 42 28 35 32 22C38 35 46 35 50 22Z" fill="#d78e79" opacity="0.9"/>
+                <circle cx="50" cy="45" r="7" fill="#EADCD0" />
+                <path d="M35 65C35 65 42 82 55 75C48 85 30 82 35 65Z" fill="#B0BCAA" />
+                <path id="logoCurve" d="M25,55 A25,25 0 0,1 75,55" fill="none" />
+                <text font-size="5" fill="#444444" font-weight="bold" letter-spacing="1">
+                    <textPath href="#logoCurve" startOffset="50%" textAnchor="middle">FLOWER GUTS</textPath>
+                </text>
+            </svg>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <div class="px-6 py-10 text-center bg-white border-b border-beige">
+        <p class="text-xs font-bold mb-2 tracking-widest text-mint uppercase">Flower Guts Project by SHIHOUSA</p>
+        <h2 class="text-2xl font-bold mb-2">心地よい習慣で、体の中から美しく。</h2>
+        <div class="h-0.5 w-12 bg-terracotta mx-auto rounded-full mt-4"></div>
+    </div>
+
+    <!-- Tabs Navigation -->
+    <nav class="px-4 py-6 overflow-x-auto whitespace-nowrap scrollbar-hide sticky top-[72px] bg-[#F4F2E9] z-40 bg-opacity-95 backdrop-blur-sm">
+        <div id="tabs-container" class="flex space-x-2">
+            <!-- Tabs injected by JS -->
+        </div>
+    </nav>
+
+    <!-- Main Content List -->
+    <main class="px-5 pb-24">
+        <div id="items-container" class="space-y-4">
+            <!-- Items injected by JS -->
+        </div>
+
+        <!-- Counter Summary -->
+        <div class="mt-12 p-6 bg-white rounded-3xl border border-beige shadow-sm flex items-center justify-between">
+            <div class="flex items-center">
+                <div class="p-3 rounded-2xl bg-[#F4F2E9] mr-4 text-gray-400">
+                    <i data-lucide="info" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-0.5">Total Progress</p>
+                    <p class="text-sm font-bold">完了した項目</p>
+                </div>
+            </div>
+            <div class="text-right">
+                <span id="checked-count" class="text-3xl font-bold text-terracotta">0</span>
+                <span class="text-sm font-bold text-gray-300 ml-1"> / 41</span>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="px-6 py-12 border-t border-beige text-center opacity-60">
+        <p class="text-[10px] leading-loose">
+            Flower Guts Project by SHIHOUSA<br />
+            <span class="font-bold">引用：ムリしない腸活 著：長瀬みなみ</span><br />
+            © 2026 All Rights Reserved.
+        </p>
+    </footer>
+
+    <script>
+        // データ定義
+        const categories = [
+            { id: 'meal', title: '食', icon: 'utensils', color: '#d78e79' },
+            { id: 'body', title: 'からだ', icon: 'accessibility', color: '#B0BCAA' },
+            { id: 'nerves', title: '自律神経', icon: 'wind', color: '#D1CEBB' },
+            { id: 'sleep', title: '睡眠', icon: 'moon', color: '#d78e79' },
+            { id: 'toilet', title: 'トイレ', icon: 'droplets', color: '#B0BCAA' },
+        ];
+
+        const content = {
+            meal: [
+                { id: 'm1', title: 'お味噌汁の具材は3品以上', desc: '具材を数種類入れて食物繊維の総量を増やし、満足度もアップさせます。' },
+                { id: 'm2', title: '主食には茶色いものを入れる', desc: '白米に玄米や雑穀を混ぜることで、精製されていない豊富な食物繊維を摂取。' },
+                { id: 'm3', title: '野菜は火を通して食べる', desc: '加熱してカサを減らすことで、生の状態よりも効率よくたくさんの量を食べられます。' },
+                { id: 'm4', title: '季節のフルーツをおやつに', desc: '完熟フルーツに含まれる水溶性食物繊維を、間食として賢く取り入れましょう。' },
+                { id: 'm5', title: 'ネバネバを1品プラス', desc: 'めかぶやオクラなどのネバネバ食品は、手軽に水溶性食物繊維を補える強い味方です。' },
+                { id: 'm6', title: '寒天をプラスする', desc: '料理や飲み物に混ぜるだけで、味を変えずに水溶性食物繊維の摂取量を増やせます。' },
+                { id: 'm7', title: 'かんたん味噌汁を作る', desc: 'お湯を注ぐだけの「だし味噌」を常備して、忙しい時でも無理なく継続しましょう。' },
+                { id: 'm8', title: '調味料を「麹」に置き換える', desc: '塩や砂糖の代わりに塩麹や甘酒を使うことで、発酵由来の栄養素を日常的に。' },
+                { id: 'm9', title: '冷凍ストックは麹漬けにする', desc: '肉や魚を塩麹に漬けて冷凍すれば、素材が柔らかくなり消化吸収の負担も軽減。' },
+                { id: 'm10', title: 'ひと口食べたら箸を置く', desc: '意識的に箸を置くことで、次々と口へ運ぶのを防ぎ、噛むことにしっかり集中。' },
+                { id: 'm11', title: 'ひと口目は意識して30回噛む', desc: 'よく噛んで唾液の分泌を促すことで、胃腸の負担を減らしながら食べ過ぎも防止。' },
+                { id: 'm12', title: '大皿を使わない', desc: '1人分を小皿に分けることで、食べた量を正確に把握して適切な食事量を保てます。' },
+            ],
+            body: [
+                { id: 'b1', title: 'スマホは顔の高さまで上げる', desc: '目線を高くして姿勢を整え、自然と胸が開くようにします。' },
+                { id: 'b2', title: '足を組まない', desc: '骨盤の歪みと姿勢悪化を防ぎ、体全体の安定感を高めます。' },
+                { id: 'b3', title: '左右バランス良く使う', desc: '左右どちらかに偏った負荷を避け、体の歪みを根本から改善します。' },
+                { id: 'b4', title: '定期的に足くびを回す', desc: '座りっぱなしで滞った血流を循環させ、足のむくみを解消します。' },
+                { id: 'b5', title: '「くび」を温める', desc: '太い血管がある三つの「くび」を温め、全身の血流と冷えを改善。' },
+                { id: 'b6', title: 'ふくらはぎストレッチをする', desc: '第二の心臓であるふくらはぎを刺激し、心臓へ戻る血液循環をサポート。' },
+                { id: 'b7', title: '膝の間にものを挟む', desc: 'クッションなどを挟んで内ももを引き締め、骨盤底筋群を効果的に刺激。' },
+                { id: 'b8', title: '椅子にもたれず直角に座る', desc: '腰と膝を90度に保つ姿勢で、腸腰筋を使って自分の体を引き上げます。' },
+                { id: 'b9', title: '腸腰筋ほぐしのツボを押す', desc: 'ヘソの横や骨盤の内側を押し、深部のインナーマッスルを活性化。' },
+            ],
+            nerves: [
+                { id: 'n1', title: 'アロマを嗅ぐ', desc: '香りの刺激を脳にダイレクトに届け、副交感神経を優位に切り替えます。' },
+                { id: 'n2', title: '目を温める', desc: 'ホットタオル等で目周りの筋肉をゆるめ、酷使した神経をリラックス。' },
+                { id: 'n3', title: '冷たい水で手を洗う', desc: '冷水の刺激で自律神経を刺激し、寝起きの体をスッキリ活動モードに。' },
+                { id: 'n4', title: '横隔膜ほぐしをする', desc: '肋骨の下をさするように動かして横隔膜を刺激し、深い呼吸を促します。' },
+                { id: 'n5', title: '声を出して笑う', desc: '笑いによる適度な刺激のあと、揺り戻しで副交感神経が優位な状態に。' },
+                { id: 'n6', title: '手くびのストレッチをする', desc: '手軽なストレッチで血流を改善し、自律神経のバランスを整えます。' },
+            ],
+            sleep: [
+                { id: 's1', title: '朝起きたら朝日を浴びる', desc: '体内時計をリセットし、一日の健康的なリズムを作ります。' },
+                { id: 's2', title: '日課を作る', desc: '決まったスケジュールを繰り返すことで、自律神経のリズムが整います。' },
+                { id: 's3', title: '予定がなくても着替える', desc: 'パジャマから着替えて身支度を整えることで、日中の活動スイッチを。' },
+                { id: 's4', title: '足湯をする', desc: '寝る前に足を温めることで体の放熱を促し、自然と眠たくなる状態へ。' },
+                { id: 's5', title: '寝るときに靴下は履かない', desc: '足先からのスムーズな放熱を妨げないよう、素足で寝て深部体温を下げます。' },
+                { id: 's6', title: '寝る前にホットドリンクを飲む', desc: '体を軽く温めてリラックスさせ、入眠に向けた温度調整をサポート。' },
+                { id: 's7', title: '単調で興味がないことをする', desc: 'あえて退屈な本などを読むことで脳をシャットダウンモードに導きます。' },
+                { id: 's8', title: 'スマホの色調を変更する', desc: '夕方以降は暖色系の設定にし、ブルーライトによる覚醒を防ぎます。' },
+                { id: 's9', title: '寝るとき以外はベッドで過ごさない', desc: 'ベッドは寝る場所だと体に覚えさせ、スムーズな入眠を促します。' },
+            ],
+            toilet: [
+                { id: 't1', title: '「考える人」の姿勢をとる', desc: '前かがみになってふんばる姿勢をとり、直腸肛門角をゆるめて出しやすく。' },
+                { id: 't2', title: 'つま先立ちになる', desc: 'かかとを上げることでお尻や下腹部に力が入りやすくなり、排便をアシスト。' },
+                { id: 't3', title: 'ウォシュレットは使わない', desc: '水圧の刺激を避け、清潔を保つためにウェットティッシュなどを活用。' },
+                { id: 't4', title: 'スマホは置いていく', desc: 'トイレでの滞在時間を短くし、肛門への負担や痔のリスクを最小限に。' },
+                { id: 't5', title: '最終ストレッチをする', desc: '直腸あたりを指で優しく押し込み、最後のひと押しを物理的にサポート。' },
+            ]
+        };
+
+        // 状態管理
+        let activeTab = 'meal';
+        const checkedItems = {}; // { itemID: boolean }
+
+        // 初期化
+        function init() {
+            renderTabs();
+            renderItems();
+            updateProgress();
+            lucide.createIcons(); // Lucideアイコンの有効化
+        }
+
+        // タブの描画
+        function renderTabs() {
+            const container = document.getElementById('tabs-container');
+            container.innerHTML = categories.map(cat => {
+                const isActive = cat.id === activeTab;
+                const activeStyle = isActive 
+                    ? `background-color: ${cat.color}; color: white;` 
+                    : `background-color: white; color: #9ca3af; border: 1px solid #EADCD0;`;
+                
+                return `
+                    <button onclick="switchTab('${cat.id}')" 
+                        class="flex items-center px-5 py-2.5 rounded-full text-xs font-bold transition-all duration-200 shadow-sm"
+                        style="${activeStyle}">
+                        <i data-lucide="${cat.icon}" class="w-4 h-4 mr-2"></i>
+                        ${cat.title}
+                    </button>
+                `;
+            }).join('');
+            lucide.createIcons();
+        }
+
+        // 読み込み・切り替え
+        function switchTab(id) {
+            activeTab = id;
+            renderTabs();
+            renderItems();
+        }
+
+        // 項目の描画
+        function renderItems() {
+            const container = document.getElementById('items-container');
+            const items = content[activeTab];
+            const activeColor = categories.find(c => c.id === activeTab).color;
+
+            container.innerHTML = items.map(item => {
+                const isChecked = checkedItems[item.id] || false;
+                const borderStyle = isChecked ? `border-color: ${activeColor};` : 'border-color: transparent;';
+                const checkColor = isChecked ? 'text-green-500' : 'text-gray-200';
+                const titleClass = isChecked ? 'line-through opacity-40' : '';
+                const descClass = isChecked ? 'opacity-30' : 'text-gray-500';
+
+                return `
+                    <div onclick="toggleItem('${item.id}')" 
+                        class="bg-white rounded-2xl p-5 shadow-sm border-2 transition-all cursor-pointer flex items-start"
+                        style="${borderStyle}">
+                        <div class="mt-0.5 mr-4 transition-colors duration-300 ${checkColor}">
+                            <i data-lucide="check-circle-2" class="w-6 h-6"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-bold text-base mb-1 transition-all ${titleClass}">${item.title}</h3>
+                            <p class="text-xs leading-relaxed transition-all ${descClass}">${item.desc}</p>
+                        </div>
+                        <div class="self-center ml-2 text-gray-200">
+                            <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            lucide.createIcons();
+        }
+
+        // チェック切り替え
+        function toggleItem(id) {
+            checkedItems[id] = !checkedItems[id];
+            renderItems();
+            updateProgress();
+        }
+
+        // 進捗更新
+        function updateProgress() {
+            const count = Object.values(checkedItems).filter(v => v).length;
+            document.getElementById('checked-count').innerText = count;
+        }
+
+        // 実行
+        init();
+    </script>
+</body>
+</html>
